@@ -1,23 +1,21 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-function connectDB() {
+const connectDB = () => {
   // Database connection 🥳
-  mongoose.connect(process.env.MONGO_CONNECTION_URL, {
+  mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
-    useCreateIndex: true,
     useUnifiedTopology: true,
-    useFindAndModify: true,
   });
   const connection = mongoose.connection;
-  connection
-    .once("open", () => {
-      console.log("Database connected 🥳🥳🥳🥳");
-    })
-    .catch((err) => {
+  connection.once("open", (err) => {
+    if (err) {
       console.log("Connection failed ☹️☹️☹️☹️");
-    });
-}
+    } else {
+      console.log("Database connected 🥳🥳🥳🥳");
+    }
+  });
+};
 
-// mIAY0a6u1ByJsWWZ
+// mongodb+srv://inShare:uCg4Ai3D3ek4p6Wr@cluster0.tqnvn.mongodb.net/inshare?retryWrites=true&w=majority
 
 module.exports = connectDB;
